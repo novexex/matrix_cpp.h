@@ -3,6 +3,8 @@
 S21Matrix::S21Matrix() : S21Matrix(3, 3) {}
 
 S21Matrix::S21Matrix(int rows, int columns) {
+    if (!rows && !columns)
+        throw std::invalid_argument("Cannot be assigned.");
     rows_ = rows;
     columns_ = columns;
     new_matrix();
@@ -26,8 +28,7 @@ S21Matrix::S21Matrix(S21Matrix &&other)
 S21Matrix& S21Matrix::operator =(const S21Matrix &other) {
     if (this == &other)
         throw std::invalid_argument("Cannot be assigned.");
-    if (matrix_ != nullptr)
-        delete_matrix();
+    delete_matrix();
     rows_ = other.rows_;
     columns_ = other.columns_;
     new_matrix();
@@ -105,19 +106,20 @@ int S21Matrix::get_columns()const {
 }
 
 void S21Matrix::set_rows(int i) {
-    if (i >= 0)
-        set_matrix(i, columns_);
+    if (!i)
+        throw std::invalid_argument("Cannot be assigned.");
+    set_matrix(i, columns_);
 }
 
 void S21Matrix::set_columns(int j) {
-    if (j >= 0)
-        set_matrix(rows_, j);
+    if (!j)
+        throw std::invalid_argument("Cannot be assigned.");
+    set_matrix(rows_, j);
 }
 
 void S21Matrix::set_matrix(int rows, int columns) {
     S21Matrix tmp(*this);
-    if (matrix_ != nullptr)
-        delete_matrix();
+    delete_matrix();
     rows_ = rows;
     columns_ = columns;
     new_matrix();
@@ -252,9 +254,11 @@ S21Matrix S21Matrix::inverse_matrix() {
 }
 
 void S21Matrix::delete_matrix() {
-    for (int i = 0; i < rows_; i++)
-        delete []matrix_[i];
-    delete []matrix_;
+    if (matrix_ != nullptr) {
+        for (int i = 0; i < rows_; i++)
+            delete []matrix_[i];
+        delete []matrix_;
+    }
 }
 
 void S21Matrix::new_matrix() {
