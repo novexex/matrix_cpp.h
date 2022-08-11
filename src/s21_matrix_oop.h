@@ -6,8 +6,6 @@
 #include <cstring>
 #include <exception>
 
-#define s21_EPS 1e-7
-
 class S21Matrix {
  public:
     S21Matrix();

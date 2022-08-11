@@ -134,8 +134,10 @@ bool S21Matrix::eq_matrix(const S21Matrix &other)const {
     if (rows_ == other.rows_ && columns_ == other.columns_) {
         for (int i = 0; i < rows_; i++) {
             for (int j = 0; j < columns_; j++) {
-                if (fabs(matrix_[i][j] - other.matrix_[i][j]) > s21_EPS)
+                if (fabs(matrix_[i][j] - other.matrix_[i][j]) > 1e-7) {
                     return_value = false;
+                    break;
+                }
             }
         }
     } else {
@@ -245,7 +247,7 @@ double S21Matrix::determinant() {
 
 S21Matrix S21Matrix::inverse_matrix() {
     double determinant = this->determinant();
-    if (fabs(determinant) < s21_EPS)
+    if (fabs(determinant) < 1e-7)
         throw std::invalid_argument("Matrix determinant equals 0.");
     S21Matrix new_minor = calc_complements();
     S21Matrix transpose_matrix = new_minor.transpose();
