@@ -58,35 +58,35 @@ S21Matrix& S21Matrix::operator *=(const double &num) {
     return *this;
 }
 
-S21Matrix S21Matrix::operator +(const S21Matrix &other) {
+S21Matrix S21Matrix::operator +(const S21Matrix &other)const {
     S21Matrix result(*this);
     result.sum_matrix(other);
     return result;
 }
 
-S21Matrix S21Matrix::operator -(const S21Matrix &other) {
+S21Matrix S21Matrix::operator -(const S21Matrix &other)const {
     S21Matrix result(*this);
     result.sub_matrix(other);
     return result;
 }
 
-S21Matrix S21Matrix::operator *(const double other) {
+S21Matrix S21Matrix::operator *(const double other)const {
     S21Matrix result(*this);
     result.mul_number(other);
     return result;
 }
 
-S21Matrix S21Matrix::operator *(const S21Matrix &other) {
+S21Matrix S21Matrix::operator *(const S21Matrix &other)const {
     S21Matrix result(*this);
     result.mul_matrix(other);
     return result;
 }
 
-bool S21Matrix::operator ==(const S21Matrix &other) {
+bool S21Matrix::operator ==(const S21Matrix &other)const {
     return eq_matrix(other);
 }
 
-double& S21Matrix::operator() (int i, int j) {
+double& S21Matrix::operator() (int i, int j)const {
     if (i < 0 || i >= rows_ || j < 0 || j >= columns_)
         throw std::out_of_range("Index outside the matrix.");
     return matrix_[i][j];
@@ -96,11 +96,11 @@ S21Matrix::~S21Matrix() {
     delete_matrix();
 }
 
-int S21Matrix::get_rows() {
+int S21Matrix::get_rows()const {
     return rows_;
 }
 
-int S21Matrix::get_columns() {
+int S21Matrix::get_columns()const {
     return columns_;
 }
 
@@ -127,7 +127,7 @@ void S21Matrix::set_matrix(int rows, int columns) {
     }
 }
 
-bool S21Matrix::eq_matrix(const S21Matrix &other) {
+bool S21Matrix::eq_matrix(const S21Matrix &other)const {
     bool return_value = true;
     if (rows_ == other.rows_ && columns_ == other.columns_) {
         for (int i = 0; i < rows_; i++) {
@@ -142,7 +142,7 @@ bool S21Matrix::eq_matrix(const S21Matrix &other) {
     return return_value;
 }
 
-void S21Matrix::sum_matrix(const S21Matrix &other) {
+void S21Matrix::sum_matrix(const S21Matrix &other)const {
     if (rows_ != other.rows_ && columns_ != other.columns_)
         throw std::invalid_argument("Different dimensionality of matrices.");
     for (int i = 0; i < rows_; i++) {
@@ -151,7 +151,7 @@ void S21Matrix::sum_matrix(const S21Matrix &other) {
     }
 }
 
-void S21Matrix::sub_matrix(const S21Matrix &other) {
+void S21Matrix::sub_matrix(const S21Matrix &other)const {
     if (rows_ != other.rows_ && columns_ != other.columns_)
         throw std::invalid_argument("Different dimensionality of matrices.");
     for (int i = 0; i < rows_; i++) {
@@ -159,7 +159,7 @@ void S21Matrix::sub_matrix(const S21Matrix &other) {
             matrix_[i][j] -= other.matrix_[i][j];
     }
 }
-void S21Matrix::mul_number(const double num) {
+void S21Matrix::mul_number(const double num)const {
     for (int i = 0; i < rows_; i++) {
         for (int j = 0; j < columns_; j++)
             matrix_[i][j] *= num;
@@ -180,7 +180,7 @@ void S21Matrix::mul_matrix(const S21Matrix &other) {
     *this = result;
 }
 
-S21Matrix S21Matrix::transpose() {
+S21Matrix S21Matrix::transpose()const {
     S21Matrix result(columns_, rows_);
     for (int i = 0; i < rows_; i++) {
         for (int j = 0; j < columns_; j++)

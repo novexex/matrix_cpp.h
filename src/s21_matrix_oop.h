@@ -20,25 +20,25 @@ class S21Matrix {
     S21Matrix& operator -=(const S21Matrix &other);
     S21Matrix& operator *=(const S21Matrix &other);
     S21Matrix& operator *=(const double &num);
-    S21Matrix operator +(const S21Matrix &other);
-    S21Matrix operator -(const S21Matrix &other);
-    S21Matrix operator *(const double other);
-    S21Matrix operator *(const S21Matrix &other);
-    bool operator ==(const S21Matrix &other);
-    double& operator() (int i, int j);
+    S21Matrix operator +(const S21Matrix &other)const;
+    S21Matrix operator -(const S21Matrix &other)const;
+    S21Matrix operator *(const double other)const;
+    S21Matrix operator *(const S21Matrix &other)const;
+    bool operator ==(const S21Matrix &other)const;
+    double& operator() (int i, int j)const;
 
     ~S21Matrix();
 
-    int get_rows();
-    int get_columns();
+    int get_rows()const;
+    int get_columns()const;
     void set_rows(int i);
     void set_columns(int j);
-    bool eq_matrix(const S21Matrix &other);
-    void sum_matrix(const S21Matrix &other);
-    void sub_matrix(const S21Matrix &other);
-    void mul_number(const double num);
+    bool eq_matrix(const S21Matrix &other)const;
+    void sum_matrix(const S21Matrix &other)const;
+    void sub_matrix(const S21Matrix &other)const;
+    void mul_number(const double num)const;
     void mul_matrix(const S21Matrix &other);
-    S21Matrix transpose();
+    S21Matrix transpose()const;
     S21Matrix calc_complements();
     double determinant();
     S21Matrix inverse_matrix();
