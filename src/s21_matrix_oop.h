@@ -42,8 +42,7 @@ class S21Matrix {
     S21Matrix inverse_matrix();
 
  private:
-    int rows_;
-    int columns_;
+    int rows_, columns_;
     double** matrix_;
 
     S21Matrix minor_matrix(int rows, int columns);
